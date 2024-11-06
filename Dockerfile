@@ -14,5 +14,7 @@ COPY . .
 # running migrations
 RUN python manage.py migrate
 
+EXPOSE 80
 # gunicorn
-CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
+# CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
+ENTRYPOINT [ "./entrypoint.sh" ]
