@@ -1,0 +1,39 @@
+<!-- myapp/templates/chat.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat WebSocket</title>
+</head>
+<body>
+    <h1>WebSocket Chat</h1>
+    <input type="text" id="messageInput" placeholder="Digite uma mensagem...">
+    <button id="sendButton">Enviar</button>
+    <div id="chatLog"></div>
+
+    <script>
+        // Conectar ao WebSocket
+        const socket = new WebSocket('ws://' + window.location.host + '/ws/chat/');
+
+        // Quando a conexão for aberta
+        socket.onopen = function(e) {
+            console.log("Conectado ao WebSocket");
+        };
+
+        // Quando uma mensagem for recebida do servidor
+        socket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            document.getElementById("chatLog").innerHTML += '<p>' + data.message + '</p>';
+        };
+
+        // Enviar uma mensagem quando o botão for pressionado
+        document.getElementById('sendButton').onclick = function() {
+            const message = document.getElementById('messageInput').value;
+            socket.send(JSON.stringify({ 'message': message }));
+            document.getElementById('messageInput').value = '';
+        };
+    </script>
+</body>
+</html>
