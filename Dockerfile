@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.10
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -11,8 +11,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+RUN  pip install python-fasthtml
+
 # running migrations
-RUN python manage.py migrate
+# RUN python manage.py migrate
 
 EXPOSE 80
 # gunicorn

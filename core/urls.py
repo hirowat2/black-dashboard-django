@@ -13,5 +13,6 @@ urlpatterns = [
     # ADD NEW Routes HERE
 
     # Leave `Home.Urls` as last the last line
+    path('dashboard/', include('dashboard.urls')),  # Inclui as URLs do dashboard
     path("", include("apps.home.urls"))
 ]
